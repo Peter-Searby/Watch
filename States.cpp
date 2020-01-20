@@ -889,33 +889,6 @@ void TimerState::enter(void){
 }
 
 
-void BatteryState::draw(byte lB, byte rB, byte uB, byte dB, byte hB, byte sB, bool *selectToggle, Adafruit_SSD1306 display){
-  display.clearDisplay();
-  display.setCursor(28, 20);
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.print("Battery: ");
-  display.setCursor(28, 30);
-  display.print("-------------");
-  display.setCursor(40, 40);
-  display.display();
-//    display.print();
-}
-
-void BatteryState::load(void){
-  needsUpdate = true;
-}
-void BatteryState::unload(void){
-  
-}
-void BatteryState::leave(void){
-  
-}
-void BatteryState::enter(void){
-  
-}
-
-
 void MandelbrotState::draw(byte lB, byte rB, byte uB, byte dB, byte hB, byte sB, bool *selectToggle, Adafruit_SSD1306 display){
   display.clearDisplay();
   display.drawBitmap(0, 0, mandelbrot, 128, 64, WHITE);
@@ -952,4 +925,3 @@ void BlankState::leave(void){
 void BlankState::enter(void){
   
 }
-

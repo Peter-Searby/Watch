@@ -89,16 +89,16 @@ time_t getRTCTime()
 
 
 
-State* states[STATESHEIGHT][STATESWIDTH] {new ClockState, new TimerState, new GOState, new SIState, new HumidityState, new TempState, new BatteryState, new MandelbrotState};
+State* states[STATESHEIGHT][STATESWIDTH] {new ClockState, new TimerState, new GOState, new SIState, new HumidityState, new TempState, new BlankState, new MandelbrotState};
 
 
 
 void setup() {
   // put your setup code here, to run once
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3D (for the 128x64)
-  display.setRotation(2);
+//  display.setRotation(2);
   display.clearDisplay();
-  display.drawBitmap(32, 0, img, 64, 64, WHITE);
+//  display.drawBitmap(32, 0, img, 64, 64, WHITE);
   display.display();
   int startTime = millis();
   Wire.begin();
@@ -131,27 +131,27 @@ void setup() {
     states[a][b]->initia(leftButt, rightButt, upButt, downButt, selectButt, homeButt);
   }
   states[curState[0]][curState[1]]->load();
-  delay(400-(millis()-startTime));
-  display.setRotation(3);
-  display.clearDisplay();
-  display.drawBitmap(0, 32, img, 64, 64, WHITE);
-  display.display();
-  delay(400);
-  display.setRotation(0);
-  display.clearDisplay();
-  display.drawBitmap(32, 0, img, 64, 64, WHITE);
-  display.display();
-  delay(400);
-  display.setRotation(1);
-  display.clearDisplay();
-  display.drawBitmap(0, 32, img, 64, 64, WHITE);
-  display.display();
-  delay(400);
+//  delay(400-(millis()-startTime));
+//  display.setRotation(3);
+//  display.clearDisplay();
+//  display.drawBitmap(0, 32, img, 64, 64, WHITE);
+//  display.display();
+//  delay(400);
+//  display.setRotation(0);
+//  display.clearDisplay();
+//  display.drawBitmap(32, 0, img, 64, 64, WHITE);
+//  display.display();
+//  delay(400);
+//  display.setRotation(1);
+//  display.clearDisplay();
+//  display.drawBitmap(0, 32, img, 64, 64, WHITE);
+//  display.display();
+//  delay(400);
   display.setRotation(2);
-  display.clearDisplay();
-  display.drawBitmap(32, 0, img, 64, 64, WHITE);
-  display.display();
-  delay(400);
+//  display.clearDisplay();
+//  display.drawBitmap(32, 0, img, 64, 64, WHITE);
+//  display.display();
+//  delay(400);
 }
 
 

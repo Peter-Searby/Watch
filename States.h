@@ -146,14 +146,6 @@
       void leave(void);
       void enter(void);
   };
-  class BatteryState : public State{
-    public:
-      void draw(byte, byte, byte, byte, byte, byte, bool*, Adafruit_SSD1306);
-      void load(void);
-      void unload(void);
-      void leave(void);
-      void enter(void);
-  };
   class MandelbrotState : public State{
     public:
       void draw(byte, byte, byte, byte, byte, byte, bool*, Adafruit_SSD1306);
@@ -172,4 +164,3 @@
   };
    
 #endif
-
