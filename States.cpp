@@ -890,13 +890,63 @@ void TimerState::enter(void){
 
 
 void MandelbrotState::draw(byte lB, byte rB, byte uB, byte dB, byte hB, byte sB, bool *selectToggle, Adafruit_SSD1306 display){
-  display.clearDisplay();
-  display.drawBitmap(0, 0, mandelbrot, 128, 64, WHITE);
-  display.display();
+  if (needsUpdate) {
+    for (int i = 0; i < 10000; i++) {
+      __complex__ float z = currentZ;
+      __complex__ float c = 3*((float)currentX)/128 - 2 + (1 - ((float)currentY)/32)*I;
+      z = z*z + c;
+      bool nextPixel = false;
+      if (sqrt(pow(creal(z), 2)+pow(cimag(z), 2)) > 2) {
+        nextPixel = true;
+        image[currentY][currentX] = false;
+      } else if (timeSpent == maxTime) {
+        nextPixel = true;
+      }
+      currentZ = z;
+      timeSpent++;
+      if (nextPixel) {
+        timeSpent = 0;
+        
+        currentX++;
+        if (currentX == 128){
+          currentX = 0;
+          currentY++;
+        }
+        if (currentY == 64) {
+          currentY = 0;
+          maxTime *= 2;
+          needsUpdate = false;
+        }
+        currentZ = 0;
+      }
+    }
+    
+    display.clearDisplay();
+    
+    for (int y = 0; y < 64; y++) {
+      for (int x = 0; x < 128; x++) {
+        if (image[y][x]) {
+          display.drawPixel(x, y, WHITE);
+        } else {
+          display.drawPixel(x, y, BLACK);
+        }
+      }
+    }
+    display.display();
+  }
 }
 
 void MandelbrotState::load(void){
   needsUpdate = true;
+  currentX = 0;
+  currentY = 0;
+  currentZ = 0;
+  maxTime = 100;
+  for (int y = 0; y < 64; y++) {
+    for (int x = 0; x < 128; x++) {
+      image[y][x] = true;
+    }
+  }
 }
 void MandelbrotState::unload(void){
   
@@ -905,7 +955,6 @@ void MandelbrotState::leave(void){
   
 }
 void MandelbrotState::enter(void){
-  
 }
 
 void BlankState::draw(byte lB, byte rB, byte uB, byte dB, byte hB, byte sB, bool *selectToggle, Adafruit_SSD1306 display){

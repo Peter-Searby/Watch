@@ -9,6 +9,7 @@
   #include <idDHT11.h>
   #include <TimeLib.h>
   #include "graphics.h"
+  #include <complex.h>
    
   class State{
     public:
@@ -148,6 +149,13 @@
   };
   class MandelbrotState : public State{
     public:
+      __complex__ float currentZ;
+      int currentX;
+      int currentY;
+      int timeSpent;
+      int maxTime;
+      bool image[64][128];
+      bool getInSet(int, int);
       void draw(byte, byte, byte, byte, byte, byte, bool*, Adafruit_SSD1306);
       void load(void);
       void unload(void);
